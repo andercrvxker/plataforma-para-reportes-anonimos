@@ -64,5 +64,54 @@
     });
 </script>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Reporte Anónimo</title>
+    <style>
+        /* (aquí va tu CSS para que se vea bonito, opcional) */
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Reporte Anónimo de Sucesos</h2>
+    <p>Escribe aquí lo que quieras reportar. No se guardará tu identidad.</p>
+
+    <form id="reporteForm">
+        <textarea id="reporte" placeholder="Escribe tu reporte aquí..." required></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div class="message" id="mensajeExito" style="display: none; color: green;">
+        ¡Tu reporte fue enviado con éxito!
+    </div>
+</div>
+
+<script>
+    const formulario = document.getElementById('reporteForm');
+    const mensaje = document.getElementById('mensajeExito');
+
+    formulario.addEventListener('submit', function(evento) {
+        evento.preventDefault(); // Evita que la página se recargue
+
+        const textoReporte = document.getElementById('reporte').value;
+
+        fetch('TU_URL_DE_SCRIPT', {  // Aquí va la URL que copiaste del paso 4
+            method: 'POST',
+            body: new URLSearchParams({ mensaje: textoReporte })
+        })
+        .then(response => response.text())
+        .then(resultado => {
+            mensaje.style.display = 'block';  // Muestra mensaje de éxito
+            formulario.reset();  // Limpia el formulario
+        })
+        .catch(error => {
+            alert("Error al enviar el reporte. Inténtalo más tarde.");
+        });
+    });
+</script>
+
 </body>
 </html>
